@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Tweets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class TweetsController extends Controller
 {
     public function index()
     {
-        $tweets = Tweets::latest()->get();
+        $tweets = Tweets::with('user')->latest()->get();
         return view('tweets.index',['title' => "Tweets",'tweets'=>$tweets]);
     }
 
@@ -36,6 +37,7 @@ class TweetsController extends Controller
         if($validator->passes()){
             $tweet = new Tweets;
             $tweet->tweets = $data['tweet'];
+            $tweet->user_id = Auth::id();
             $tweet->save();
             return redirect('/');
         }
