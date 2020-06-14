@@ -4,38 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Comments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $rules = [
+            'tweet' => 'required'
+        ];
+
+        $validator = Validator::make($data,$rules);
+
+        if($validator){
+            $comment = new Comments;
+            $comment->body = $data['comment'];
+            $comment->tweet_id = $data['tweet'];
+            $comment->user_id = Auth::id();
+            $comment->save();
+            return redirect('/');
+        }
+
+        $errors = $validator->messages();
+        return redirect('/tweets')->withErrors($errors);
     }
 
     /**

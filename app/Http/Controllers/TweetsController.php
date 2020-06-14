@@ -11,7 +11,8 @@ class TweetsController extends Controller
 {
     public function index()
     {
-        $tweets = Tweets::with('user')->latest()->get();
+        $tweets = Tweets::with(['user','comments'])->latest()->get();
+
         return view('tweets.index',['title' => "Tweets",'tweets'=>$tweets]);
     }
 
@@ -48,7 +49,10 @@ class TweetsController extends Controller
 
     public function show(Tweets $tweets)
     {
-        //
+        return view('tweets.show',[
+                'title'=>"Tweet",
+                'tweet'=>$tweets
+            ]);
     }
 
     public function edit(Tweets $tweets)

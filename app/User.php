@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function tweets(){
         return $this->hasMany(Tweets::class);
     }
+
+    public function comments(){
+        return $this->hasMany(Comments::class);
+    }
 }
