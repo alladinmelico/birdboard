@@ -25,4 +25,8 @@ Route::get('/tweets', 'TweetsController@index')->name('tweets');
 Route::post('/tweets', 'TweetsController@store');
 Route::get('/tweets/create', 'TweetsController@create')->name('tweets.create');
 Route::get('/tweets/{tweets}', 'TweetsController@show')->name('tweets.show');
+Route::get('/tweets/{tweets}/edit', 'TweetsController@edit')->name('tweets.edit');
+Route::put('/tweets/{tweets}', 'TweetsController@update');
+Route::delete('/tweets/{tweets}', 'TweetsController@destroy')->name('tweets.destroy');
+
 Route::post('/comments', 'CommentsController@store');

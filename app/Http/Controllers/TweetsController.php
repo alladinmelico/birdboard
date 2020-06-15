@@ -57,16 +57,21 @@ class TweetsController extends Controller
 
     public function edit(Tweets $tweets)
     {
-        //
+        return view('tweets.edit',['title'=> "Edit Tweet",'tweet'=>$tweets]);
     }
 
     public function update(Request $request, Tweets $tweets)
     {
-        //
+        // if($request->user()->id !== $tweets->user_id){
+        //     return request()->json(['error'=>'You can only edit your own tweet',403]);
+        // }
+        $tweets->update($request->all());
+        return redirect('/');
     }
 
     public function destroy(Tweets $tweets)
     {
-        //
+        $tweets->delete();
+        return redirect('/');
     }
 }
