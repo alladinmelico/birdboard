@@ -10,8 +10,8 @@ class Comments extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tweet(){
-        return $this->belongsTo(Tweets::class, 'tweet_id');
+    public function replies(){
+        return $this->hasMany(Comments::class, 'parent_id');
     }
 
 }

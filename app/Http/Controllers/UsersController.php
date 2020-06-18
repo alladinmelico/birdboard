@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\Auth;
 class UsersController extends Controller
 {
     public function __construct(){
-        if (!Auth::check()) {
-            return 'wrong credentials';
-        }
+        return $this->middleware('auth');
     }
+
     public function index()
     {
         //

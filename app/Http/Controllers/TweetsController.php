@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class TweetsController extends Controller
 {
+
+    public function __construct(){
+        return $this->middleware('auth');
+    }
+
     public function index()
     {
-        $tweets = Tweets::with(['user','comments'])->latest()->get();
+        $tweets = Tweets::with(['user'])->latest()->get();
 
         return view('tweets.index',['title' => "Tweets",'tweets'=>$tweets]);
     }

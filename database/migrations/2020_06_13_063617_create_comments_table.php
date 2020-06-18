@@ -16,9 +16,10 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('body');
-            $table->unsignedBigInteger('parent')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('tweet_id');
             $table->unsignedBigInteger('user_id');
+            $table->string('tweet_type');
             $table->timestamps();
 
             $table->foreign('tweet_id')

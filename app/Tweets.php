@@ -12,6 +12,6 @@ class Tweets extends Model
     }
 
     public function comments(){
-        return $this->hasMany(Comments::class,'tweet_id');
+        return $this->morphMany(Comments::class,'tweet')->whereNull('parent_id');
     }
 }

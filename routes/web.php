@@ -29,7 +29,9 @@ Route::get('/tweets/{tweets}/edit', 'TweetsController@edit')->name('tweets.edit'
 Route::put('/tweets/{tweets}', 'TweetsController@update');
 Route::delete('/tweets/{tweets}', 'TweetsController@destroy')->name('tweets.destroy');
 
+
 Route::post('/comments', 'CommentsController@store');
+Route::post('/reply', 'CommentsController@replyStore')->name('reply.add');
 
 Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');

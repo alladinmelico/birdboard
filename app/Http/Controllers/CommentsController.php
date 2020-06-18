@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Comments;
+use App\Tweets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
+    public function __construct(){
+        return $this->middleware('auth');
+    }
+
     public function index()
     {
         //
@@ -32,14 +37,27 @@ class CommentsController extends Controller
         if($validator){
             $comment = new Comments;
             $comment->body = $data['comment'];
-            $comment->tweet_id = $data['tweet'];
             $comment->user_id = Auth::id();
-            $comment->save();
-            return redirect('/');
+            $tweet = Tweets::find($data['parent_id']);
+            $tweet->comments()->save($comment);
+            return back();
         }
 
         $errors = $validator->messages();
-        return redirect('/tweets')->withErrors($errors);
+        return back();
+    }
+
+    public function replyStore(Request $request ){
+        $reply = new Comments();
+
+        $reply->body = $request->get('body');
+        $reply->user()->associate($request->user());
+        $reply->parent_id = $request->get('comment_id');
+        $tweet = Tweets::find($request->get('tweet_id'));
+
+        $tweet->comments()->save($reply);
+
+        return back();
     }
 
     /**

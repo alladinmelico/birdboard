@@ -21,7 +21,11 @@
             </div>
             <div class="card-footer">
                 <div class="comments">
-                    @include('profiles.create')
+                    @include('comments.show',['comments' => $tweet->comments, 'tweet_id'=>$tweet->id])
+                </div>
+
+                <div class="add-comments">
+                    @include('comments.create')
                 </div>
             </div>
         </div>
