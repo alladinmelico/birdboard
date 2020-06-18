@@ -30,3 +30,28 @@ Route::put('/tweets/{tweets}', 'TweetsController@update');
 Route::delete('/tweets/{tweets}', 'TweetsController@destroy')->name('tweets.destroy');
 
 Route::post('/comments', 'CommentsController@store');
+
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.update');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+
+Route::get('/profile','UsersController@show')->name('profile.show');
+Route::post('/profile','UsersController@update');
+Route::get('/profile/edit','UsersController@edit')->name('profile.edit');
+
+Route::get('storage/{filename}', function($filename){
+    $path = storage_path('images/'.$filename);
+
+    if(!File::exists($path)){
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type",$type);
+
+    return $response;
+})->name('storage');

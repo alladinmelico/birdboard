@@ -49,9 +49,16 @@ class TweetsController extends Controller
 
     public function show(Tweets $tweets)
     {
+        $isAuthor = false;
+        $author = Tweets::find($tweets->id);
+
+        if (Auth::id() == $author->user_id){
+            $isAuthor = true;
+        }
         return view('tweets.show',[
                 'title'=>"Tweet",
-                'tweet'=>$tweets
+                'tweet'=>$tweets,
+                'isAuthor'=>$isAuthor
             ]);
     }
 

@@ -3,12 +3,15 @@
 @section('content')
 <div class="container">
     @auth
-        <a href="/tweets/create" class="btn btn-primary">Create</a>
+        @include('tweets.create')
     @endauth
     @foreach ($tweets as $tweet)
         <div class="card shadow m-3">
             <div class="card-body">
-            <h4 class="card-title"><a href="{{ route('tweets.show',$tweet) }}">{{ $tweet->user->name}}</a></h4>
+                <div class="container d-flex w-3">
+                    <img src="{{ route('storage',$tweet->user->profile) }}" alt="" class="mr-3" width=50>
+                    <h4 class="card-title"><a href="{{ route('tweets.show',$tweet) }}">{{ $tweet->user->name}}</a></h4>
+                </div>
                 <p class="card-text">{{ $tweet->tweets }}</p>
             </div>
             <div class="card-footer">
@@ -65,11 +68,11 @@
 
                 @auth
                     <div class="add-comment">
-                        <form action="/comments" method="post" class="form-inline">
+                        <form action="/comments" method="post" class="d-flex justify-content-center bg-dar">
                             {{ csrf_field() }}
                             <input type="text" name="comment" id="" class="form-control">
                             <input type="hidden" name="tweet" value={{ $tweet->id }}>
-                            <button type="submit" class="btn btn-info text-light"><i class="fa fa-paper-plane"></i></button>
+                            <button type="submit" class="btn btn-info text-light ml-3"><i class="fa fa-paper-plane"></i></button>
                         </form>
                     </div>
                 @endauth
