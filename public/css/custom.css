@@ -1,0 +1,11 @@
+.comment-form {
+	display: none;
+}
+.comment-forms {
+	cursor: pointer;
+	display: none;
+}
+
+.parent {
+	display: block;
+}

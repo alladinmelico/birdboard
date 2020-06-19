@@ -21,7 +21,7 @@
             </div>
             <div class="card-footer">
                 <div class="comments">
-                    @include('comments.show',['comments' => $tweet->comments, 'tweet_id'=>$tweet->id])
+                    @include('comments.show',['comments' => $tweet->comments, 'tweet_id'=>$tweet->id,'isParent'=>true])
                 </div>
 
                 <div class="add-comments">

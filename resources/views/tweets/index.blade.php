@@ -15,28 +15,7 @@
                 <p class="card-text">{{ $tweet->tweets }}</p>
             </div>
             <div class="card-footer">
-                {{-- @php
-                     $mainComments = array();
-                     $comments = array();
-                     foreach ($tweet->comments as $comment) {
-                         $comments[$comment->id] = $comment;
-                     }
-                @endphp
 
-                <div class="comments">
-                    <ul>
-                        @foreach ($comments as $comment)
-                            <li class="list-unstyled">
-                                <strong></strong>
-                                {{ $comment->body}}
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                @auth
-                    @include('comments.create')
-                @endauth --}}
             </div>
         </div>
     @endforeach
