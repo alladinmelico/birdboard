@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('tweet_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('tweet_type');
+            $table->string('tweet_type')->default('App\Tweets');
             $table->timestamps();
 
             $table->foreign('tweet_id')

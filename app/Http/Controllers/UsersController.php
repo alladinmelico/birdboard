@@ -13,7 +13,10 @@ class UsersController extends Controller
 
     public function index()
     {
-        //
+        $users = \App\User::orderBy('name','DESC')->paginate(10);
+        $title = 'Users';
+        // dd($users);
+        return view('profiles.index',compact('users','title'));
     }
 
     public function create()
@@ -50,6 +53,6 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        //
+
     }
 }

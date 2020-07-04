@@ -4,13 +4,12 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        Model::unguard();
+        $this->call(UserSeeder::class);
+        $this->call(TweetsSeeder::class);
+        $this->call(CommentsSeeder::class);
+        Model::reguard();
     }
 }

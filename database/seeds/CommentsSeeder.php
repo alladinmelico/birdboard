@@ -4,13 +4,8 @@ use Illuminate\Database\Seeder;
 
 class CommentsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        //
+        $comments = factory(App\Comments::class, 200)->create();
     }
 }

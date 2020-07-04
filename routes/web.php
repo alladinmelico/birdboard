@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/feed/{postId?}', 'PostsController@index');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,15 +21,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('user', 'UsersController');
+
 Route::get('/', 'TweetsController@index')->name('home');
 Route::get('/home', 'TweetsController@index')->name('home');
-Route::get('/tweets', 'TweetsController@index')->name('tweets');
-Route::post('/tweets', 'TweetsController@store');
-Route::get('/tweets/create', 'TweetsController@create')->name('tweets.create');
-Route::get('/tweets/{tweets}', 'TweetsController@show')->name('tweets.show');
-Route::get('/tweets/{tweets}/edit', 'TweetsController@edit')->name('tweets.edit');
-Route::put('/tweets/{tweets}', 'TweetsController@update');
-Route::delete('/tweets/{tweets}', 'TweetsController@destroy')->name('tweets.destroy');
+// Route::get('/tweets', 'TweetsController@index')->name('tweets');
+// Route::post('/tweets', 'TweetsController@store');
+// Route::get('/tweets/create', 'TweetsController@create')->name('tweets.create');
+// Route::get('/tweets/{tweets}', 'TweetsController@show')->name('tweets.show');
+// Route::get('/tweets/{tweets}/edit', 'TweetsController@edit')->name('tweets.edit');
+// Route::put('/tweets/{tweets}', 'TweetsController@update');
+// Route::delete('/tweets/{tweets}', 'TweetsController@destroy')->name('tweets.destroy');
+
+Route::resource('tweet', 'TweetsController');
 
 
 Route::post('/comments', 'CommentsController@store');

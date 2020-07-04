@@ -18,10 +18,12 @@ const showReplies = () => {
 
 	commentForms.forEach(comment => {
 		comment.addEventListener('click', e => {
-			const children = comment.children
-			for (let index = 0; index < children.length; index++) {
-				if (children[index].className.includes('comment-forms')) {
-					children[index].classList.toggle('parent')
+			if (e.target.classList.contains('parent')) {
+				const children = comment.children
+				for (let index = 0; index < children.length; index++) {
+					if (children[index].className.includes('comment-forms')) {
+						children[index].classList.toggle('parent')
+					}
 				}
 			}
 		})

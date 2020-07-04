@@ -16,9 +16,10 @@ class TweetsController extends Controller
 
     public function index()
     {
-        $tweets = Tweets::with(['user'])->latest()->get();
+        $tweets = Tweets::with(['user'])->latest()->paginate(10);
+        $title = 'Tweets';
 
-        return view('tweets.index',['title' => "Tweets",'tweets'=>$tweets]);
+        return view('tweets.index',compact('tweets','title'));
     }
 
     public function create()
@@ -45,26 +46,24 @@ class TweetsController extends Controller
             $tweet->tweets = $data['tweet'];
             $tweet->user_id = Auth::id();
             $tweet->save();
-            return redirect('/');
+            return redirect('/tweet')->with('success','Tweets added!');
         }
 
         $errors = $validator->messages();
-        return redirect('/tweets/create')->withErrors($errors);
+        return back()->withErrors($errors)->withInput($data);
     }
 
-    public function show(Tweets $tweets)
+    public function show(Tweets $tweet)
     {
         $isAuthor = false;
-        $author = Tweets::find($tweets->id);
+        $author = Tweets::find($tweet->id);
+        $title = 'Tweet';
 
         if (Auth::id() == $author->user_id){
             $isAuthor = true;
         }
-        return view('tweets.show',[
-                'title'=>"Tweet",
-                'tweet'=>$tweets,
-                'isAuthor'=>$isAuthor
-            ]);
+
+        return view('tweets.show',compact('title','tweet','isAuthor'));
     }
 
     public function edit(Tweets $tweets)
